@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/ebec749033.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,700;1,300;1,400;1,500&family=Quicksand&family=Ubuntu&family=Varela+Round&display=swap");
+      
+      *{
+        margin: 0;
+        padding: 0;
+        font-family: "Quicksand", sans-serif;
+      }
+      body{
+        background: #fff;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 100vh ;
+        width: 100vw ;
+        font-size: large;
+      }
+      .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; 
+        width: 300px;
+        background-color: #a5bbdd;
+        height: 480px;
+        border-radius: 1.1rem;
+      }
+      #weathercon {
+        font-size: 3.5rem;
+        margin-top: -10px;  
+        margin-left: 27px;  
+        opacity: 0.8;
+        transition: opacity 0.3s ease; 
+        transition: transform 0.3s ease;
+      }
+      #weathercon:hover{
+        opacity: 1.5; 
+        transform: scale(1.2);
+      }
+      .info{
+        font-size: 15px;
+      }
+      .location{
+        font-size: 1.8rem;
+        margin-top: -135px;
+        padding: 20px;
+      }
+      #date{
+      text-align: center;
+      }
+      .temp{
+        text-align: center;
+        padding: 20px;
+      }
+      .tempminmax{
+        text-align: center;
+      }
+    </style>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="box-1"></div>
+      <div class="box-2"></div>
+      <div class="box-3"></div>
+
+      <div id="weathercon">
+        <i class="fa-solid fa-sun" style="color: #e5d73e"></i>
+      </div>
+      <div class="info">
+        <h2 class="location">
+           <i class="fa-solid fa-street-view"> </i>  
+           {%location%},{%country%} 
+        </h2>
+        <p id="date">Sat | JUN 17 | 11:08 AM</p>
+        <h1 class="temp">{%tempval%}</h1>
+        <h3 class="tempminmax">Min {%tempmin%} | Max {%tempmax%}</h3>
+      </div>
+    </div>
+    <script>
+      const curDate= document.getElementById("date");
+      let weathercon = document.getElementById("weathercon");
+      const tempStatus = "clouds";
+
+      const getCurrentDay = ()=>{
+        const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+        let currentTime = new Date();
+        let day = weekday[currentTime.getDay()];
+        return day;
+      }
+       
+      const getCurrentTime =()=>{
+        var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+        var now = new Date();
+        const month = months[now.getMonth()];
+        var date = now.getDate();
+
+        let hours = now.getHours();
+        let mins = now.getMinutes();
+
+        let period = "AM";
+        if(hours > 11) {
+          period = "PM";
+          if (hours > 11) hours -= 12; 
+        }
+        if(mins< 10) {
+          mins = "0"+mins;
+        }
+
+        return `${month} ${date}   |   ${hours}:${mins}${period}`;
+      }
+      curDate.innerHTML = getCurrentDay() + " | "  + getCurrentTime();
+    </script>
+  </body>
+</html>
